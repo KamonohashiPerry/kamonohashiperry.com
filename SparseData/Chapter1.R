@@ -1,6 +1,6 @@
 library(glmnet)
 
-crime <- read.table("/Users/Sakaue/Dropbox/R/kamonohashiperry.com/SparseData/crime.txt")
+crime <- read.table("crime.txt")
 crime <- as.matrix(crime)
 
 x <- crime[, 3:7]
