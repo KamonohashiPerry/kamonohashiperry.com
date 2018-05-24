@@ -87,3 +87,40 @@ hist(beta$`64.6`)
 
 par(mfrow = c(,1))
 hist(V_b$`5.6`)
+
+
+# 1000行*313列のデータを313000行*1列のデータにしたい。
+for (i in 1:6) {
+  nam <- paste("beta", i, sep = "")
+  assign(nam, beta[,(1+313*(i-1)):(313*(i))] %>% tidyr::gather(key, value))
+}
+
+beta_matrix <- beta1 %>% bind_cols(beta2,beta3,beta4,beta5,beta6)
+beta_matrix <- beta_matrix %>% select(-starts_with("key"))
+
+#相関係数
+cor(beta_matrix)
+
+# 1000行*8列のデータを8000行*1列のデータにしたい。
+for (i in 1:6) {
+  nam <- paste("delta", i, sep = "")
+  assign(nam, Delta %>% select(starts_with(paste0(i,"."))))
+}
+
+
+delta1 %>% summarise_all(.funs = c(Mean="mean", Sd="sd"))
+delta2 %>% summarise_all(.funs = c(Mean="mean", Sd="sd"))
+delta3 %>% summarise_all(.funs = c(Mean="mean", Sd="sd"))
+delta4 %>% summarise_all(.funs = c(Mean="mean", Sd="sd"))
+delta5 %>% summarise_all(.funs = c(Mean="mean", Sd="sd"))
+delta6 %>% summarise_all(.funs = c(Mean="mean", Sd="sd"))
+
+# Plot
+par(mfrow = c(2,3))
+hist(beta_matrix$value)
+hist(beta_matrix$value1)
+hist(beta_matrix$value2)
+hist(beta_matrix$value3)
+hist(beta_matrix$value4)
+hist(beta_matrix$value5)
+
