@@ -25,9 +25,9 @@ parameters{
 }
 
 transformed parameters{
-  vector[p_x] beta[N_z];
-  matrix[p_x, p_x] L_b;
-  matrix[p_x, p_x] L_d;
+  vector[p_x] beta[N_z]; #家計の数だけの係数ベクトル
+  matrix[p_x, p_x] L_b; #共分散行列（beta(家計ごとの係数の共分散)）
+  matrix[p_x, p_x] L_d; #共分散行列（delta(属性データの係数の共分散)）
   
   L_b = cholesky_decompose(V_b); // 共分散行列のコレスキー因子をもとめる
   L_d = cholesky_decompose(100*V_b); // 共分散行列に0.01で割ったもののコレスキー因子をもとめる
